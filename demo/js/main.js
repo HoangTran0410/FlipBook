@@ -138,7 +138,12 @@ async function loadData() {
 
   for (let i = 0; i < data.length; i++) {
     //add category name
-    s += `<div class="book category-name">${data[i].name}</div>`;
+    s += `
+    <div class="page">
+      <div class="category-name gradient">
+        ${data[i].name}
+      </div>
+    </div>`;
 
     let content = "";
     for (let j = 0; j < data[i].products.length; j++) {
@@ -157,13 +162,16 @@ async function loadData() {
         <td>${data[i].products[j].price}</td>
       </tr>`;
 
-      if ((j + 1) % 5 === 0 || j + 1 == data[i].products.length) {
+      if (
+        (j + 1) % config.productPerPage === 0 ||
+        j + 1 == data[i].products.length
+      ) {
         s += `
-        <div class="book">
+        <div class="page">
           <div class="shadow"></div>
-          <div class="content-inside">
+          <div class="content-inside gradient">
             <p class="page-header">${data[i].name}</p>
-            <table class="table" cellspacing="0">
+            <table class="table" cellspacing="0" >
               <tr>
                 <th>ID</th>
                 <th>Image</th>
@@ -181,10 +189,12 @@ async function loadData() {
     }
   }
 
-  s =
-    '<div class="hard cover"></div><div class="hard"></div>' +
-    s +
-    '<div class="hard"></div><div class="hard" style="background-color:#fff !important"></div>';
+  s = `
+  <div class="hard" style="background-image: url(${config.coverPage})"></div>
+  <div class="hard" style="background-image: url(${config.coverPage2})"></div>
+    ${s}
+  <div class="hard" style="background-image: url(${config.coverPageBack2})"></div>
+  <div class="hard" style="background-image: url(${config.coverPageBack})"></div>`;
 
   return s;
   // $("#flipbook").html(s);

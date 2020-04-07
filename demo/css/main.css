@@ -27,12 +27,11 @@ body {
   margin: auto;
 }
 
-/* .viewport .flipbook {
-} */
+.viewport .flipbook {
+  overflow: visible !important;
+}
 
 .viewport .page {
-  /* width: 461px;
-  height: 600px; */
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
@@ -47,19 +46,6 @@ body {
   -ms-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.viewport .page img {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin: 0;
-}
-
-.flipbook {
-  overflow: visible !important;
 }
 
 .viewport .shadow {
@@ -78,40 +64,77 @@ body {
 }
 
 .content-inside {
-  margin: 20px;
+  width: 100%;
+  height: 100%;
 }
 
-td {
-  padding: 10px;
+.content-inside .page-header {
+  position: absolute;
+  text-align: center;
+  margin: 0;
+  top: 10px;
+  right: 20px;
+
+  font-weight: 500;
 }
 
-tbody tr:first-child td {
-  font-weight: bold;
-  text-transform: uppercase;
+.table {
+  padding: 40px 20px 45px;
+  table-layout: auto;
+  width: 100%;
+  height: 100%;
+  font-size: 0.8em;
+
   text-align: center;
 }
 
-td {
-  letter-spacing: 0.5px;
+.table th,
+.table td {
+  word-wrap: break-word;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+
+  background-color: #4caf50;
+  color: white;
+}
+
+.table td {
+  letter-spacing: 0.75px;
+}
+
+/* .table tr:hover {
+  background-color: #f5f5f5;
+} */
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table .img-preview {
+  width: 70px;
+  height: 70px;
 }
 
 .number-page {
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   left: 50%;
   font-weight: bold;
 }
 
 .hard.cover {
-  /* background-image: url("https://gonhub.com/wp-content/uploads/2019/04/tuyen-tap-mau-bia-tieu-luan-ho-so-bao-cao-tai-chinh-thuc-tap-dep-nhat-hien-nay-8.jpg"); */
+  background-image: url(../assets/coverpage.png);
   background-size: cover;
 }
 
 /* .hard.cover::after {
   position: absolute;
-  content: "Lê Minh Cường ở Đại học Sài Gòn";
-  top: 205px;
-  left: 120px;
+  content: "Menu";
+  top: 20%;
   font-weight: bold;
   font-size: 1.3rem;
 } */

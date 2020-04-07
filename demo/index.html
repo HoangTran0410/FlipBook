@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 
-  <script type="text/javascript" src="../extras/jquery.min.1.7.js"></script>
+  <script type="text/javascript" src="../libs/jquery.min.1.7.js"></script>
   <script type="text/javascript" src="../libs/hash.js"></script>
   <script type="text/javascript" src="../libs/turn.min.js"></script>
   <script type="text/javascript" src="../libs/zoom.min.js"></script>
@@ -28,6 +28,25 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const config = {
+      apiUrl: "https://my-json-server.typicode.com/Ram4GB/TurnJsPage/categories",
+      pageSizeRatio: 1.41582491582, // pageHeight / pageWidth
+      canvasSelector: "#canvas",
+      viewportSelector: ".viewport",
+      flipbookSelector: ".flipbook",
+    };
+
+    $(config.canvasSelector).hide();
+
+    $(document).ready(function () {
+      loadData().then((data) => {
+        // console.log(data);
+        loadFlipbook(data);
+      });
+    });
+  </script>
 
   <script src="js/main.js"></script>
   <link rel="stylesheet" href="css/main.css">

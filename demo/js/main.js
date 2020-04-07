@@ -1,19 +1,3 @@
-const config = {
-  pageSizeRatio: 1.41582491582, // pageHeight / pageWidth
-  canvasSelector: "#canvas",
-  viewportSelector: ".viewport",
-  flipbookSelector: ".flipbook",
-};
-
-$(config.canvasSelector).hide();
-
-$(document).ready(function () {
-  loadData().then((data) => {
-    // console.log(data);
-    loadFlipbook(data);
-  });
-});
-
 const loadFlipbook = function (data) {
   const canvas = $(config.canvasSelector);
   const viewport = $(config.viewportSelector);
@@ -143,7 +127,7 @@ async function loadData() {
   let data = await $.ajax({
     type: "GET",
     // url: "http://35.240.207.163/categories",.
-    url: "https://my-json-server.typicode.com/Ram4GB/TurnJsPage/categories",
+    url: config.apiUrl,
   });
 
   console.log(data);
@@ -153,16 +137,17 @@ async function loadData() {
   let page = 0;
 
   for (let i = 0; i < data.length; i++) {
-    //add catename
+    //add category name
     s += `<div class="book category-name">${data[i].name}</div>`;
 
     let content = "";
     for (let j = 0; j < data[i].products.length; j++) {
-      content += `<tr>
+      content += `
+      <tr>
         <td>${data[i].products[j].id}</td>
         <td>
           <img
-            style="width: 80px; height: 80px;"
+            class="img-preview"
             src="${data[i].products[j].image}"
             alt=""
           />
@@ -177,13 +162,14 @@ async function loadData() {
         <div class="book">
           <div class="shadow"></div>
           <div class="content-inside">
-            <table cellpadding="0" cellspacing="0" class="table" style="width: 100%;">
+            <p class="page-header">${data[i].name}</p>
+            <table class="table" cellspacing="0">
               <tr>
-                <td>ID</td>
-                <td>Image</td>
-                <td>Title</td>
-                <td>Origin  </td>
-                <td>Price</td>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Origin  </th>
+                <th>Price</th>
               </tr>
               ${content}
             </table>

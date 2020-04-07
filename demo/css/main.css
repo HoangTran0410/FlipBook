@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400&display=swap");
+
 body {
+  font-family: "Barlow Condensed", sans-serif;
   background-color: #fcfcfc;
   margin: 0;
   padding: 0;
@@ -37,7 +40,7 @@ body {
   -webkit-box-align: center;
   align-items: center;
 
-  background-color: #e5d9f9;
+  background-color: #fff;
 }
 
 .flipbook .page {
@@ -55,69 +58,8 @@ body {
   margin: 0;
 }
 
-.flipbook .even .gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(0.95, rgba(0, 0, 0, 0)),
-    color-stop(1, rgba(0, 0, 0, 0.2))
-  );
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(95%, rgba(0, 0, 0, 0)),
-    to(rgba(0, 0, 0, 0.2))
-  );
-  background-image: linear-gradient(
-    left,
-    rgba(0, 0, 0, 0) 95%,
-    rgba(0, 0, 0, 0.2) 100%
-  );
-}
-
-.flipbook .odd .gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: -webkit-gradient(
-    linear,
-    right top,
-    left top,
-    color-stop(0.95, rgba(0, 0, 0, 0)),
-    color-stop(1, rgba(0, 0, 0, 0.15))
-  );
-  background-image: -webkit-gradient(
-    linear,
-    right top,
-    left top,
-    color-stop(95%, rgba(0, 0, 0, 0)),
-    to(rgba(0, 0, 0, 0.15))
-  );
-  background-image: linear-gradient(
-    right,
-    rgba(0, 0, 0, 0) 95%,
-    rgba(0, 0, 0, 0.15) 100%
-  );
-}
-
-.viewport .loader {
-  background-image: url(../pics/loader.gif);
-  width: 22px;
-  height: 22px;
-  position: absolute;
-  top: 280px;
-  left: 219px;
+.flipbook {
+  overflow: visible !important;
 }
 
 .viewport .shadow {
@@ -135,9 +77,52 @@ body {
   transition: margin-left 0.5s;
 }
 
-.bottom {
+.content-inside {
+  margin: 20px;
+}
+
+td {
+  padding: 10px;
+}
+
+tbody tr:first-child td {
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+td {
+  letter-spacing: 0.5px;
+}
+
+.number-page {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  bottom: 5px;
+  left: 50%;
+  font-weight: bold;
+}
+
+.hard.cover {
+  /* background-image: url("https://gonhub.com/wp-content/uploads/2019/04/tuyen-tap-mau-bia-tieu-luan-ho-so-bao-cao-tai-chinh-thuc-tap-dep-nhat-hien-nay-8.jpg"); */
+  background-size: cover;
+}
+
+/* .hard.cover::after {
+  position: absolute;
+  content: "Lê Minh Cường ở Đại học Sài Gòn";
+  top: 205px;
+  left: 120px;
+  font-weight: bold;
+  font-size: 1.3rem;
+} */
+
+.hard {
+  background-color: rgb(204, 204, 204) !important;
+}
+
+.category-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
 }

@@ -1,5 +1,4 @@
 const config = {
-  pageBaseSize: 100,
   pageSizeRatio: 1.41582491582, // pageHeight / pageWidth
   canvasSelector: "#canvas",
   viewportSelector: ".viewport",
@@ -9,10 +8,13 @@ const config = {
 $(config.canvasSelector).hide();
 
 $(document).ready(function () {
-  loadFlipbook();
+  loadData().then((data) => {
+    // console.log(data);
+    loadFlipbook(data);
+  });
 });
 
-const loadFlipbook = function () {
+const loadFlipbook = function (data) {
   const canvas = $(config.canvasSelector);
   const viewport = $(config.viewportSelector);
   // const container = $("#canvas .container");
@@ -25,6 +27,8 @@ const loadFlipbook = function () {
     setTimeout(loadFlipbook, 10);
     return;
   }
+
+  flipbook.html(data);
 
   // Create flipbook
   flipbook.turn({
@@ -44,7 +48,7 @@ const loadFlipbook = function () {
     // Elevation from the edge of the flipbook when turning a page
     elevation: 50,
     // The number of pages
-    // pages: 12,
+    pages: 12,
 
     // Events
     when: {
@@ -63,7 +67,7 @@ const loadFlipbook = function () {
 
       missing: function (event, pages) {
         // Add pages that aren't in the flipbook
-        for (var i = 0; i < pages.length; i++) addPage(pages[i], $(this));
+        // for (var i = 0; i < pages.length; i++) addPage(pages[i], $(this));
       },
     },
   });
@@ -135,7 +139,85 @@ const loadFlipbook = function () {
   resizeViewport(viewport, flipbook);
 };
 
-function addPage() {}
+async function loadData() {
+  let data = await $.ajax({
+    type: "GET",
+    // url: "http://35.240.207.163/categories",.
+    url: "https://my-json-server.typicode.com/Ram4GB/TurnJsPage/categories",
+  });
+
+  console.log(data);
+
+  let s = "";
+
+  let page = 0;
+
+  for (let i = 0; i < data.length; i++) {
+    //add catename
+    s += `<div class="book category-name">${data[i].name}</div>`;
+
+    let content = "";
+    for (let j = 0; j < data[i].products.length; j++) {
+      content += `<tr>
+        <td>${data[i].products[j].id}</td>
+        <td>
+          <img
+            style="width: 80px; height: 80px;"
+            src="${data[i].products[j].image}"
+            alt=""
+          />
+        </td>
+        <td>${data[i].products[j].name}</td>
+        <td>${data[i].products[j].origin}</td>
+        <td>${data[i].products[j].price}</td>
+      </tr>`;
+
+      if ((j + 1) % 5 === 0 || j + 1 == data[i].products.length) {
+        s += `
+        <div class="book">
+          <div class="shadow"></div>
+          <div class="content-inside">
+            <table cellpadding="0" cellspacing="0" class="table" style="width: 100%;">
+              <tr>
+                <td>ID</td>
+                <td>Image</td>
+                <td>Title</td>
+                <td>Origin  </td>
+                <td>Price</td>
+              </tr>
+              ${content}
+            </table>
+          </div>
+          <div class="number-page">${page++}</div>
+        </div>`;
+        content = "";
+      }
+    }
+  }
+
+  s =
+    '<div class="hard cover"></div><div class="hard"></div>' +
+    s +
+    '<div class="hard"></div><div class="hard" style="background-color:#fff !important"></div>';
+
+  return s;
+  // $("#flipbook").html(s);
+}
+
+function addPage(page, flipbook) {
+  // Create a new element for this page
+  var element = $('<div class="page" />', {});
+
+  // Add the page to the flipbook
+  if (flipbook.turn("addPage", element, page - 2)) {
+    // Add the initial HTML
+    // It will contain a loader indicator and a gradient
+    element.html(`<div class="loader"></div>`);
+
+    // Load the page
+    // loadPage(page, element);
+  }
+}
 
 // http://code.google.com/p/chromium/issues/detail?id=128488
 function isChrome() {
@@ -150,7 +232,7 @@ function getDisplay() {
   return isLandscape() ? "double" : "single";
 }
 
-function getInitialPageSize(base = config.pageBaseSize) {
+function getInitialPageSize(base = 1) {
   if (isLandscape())
     return {
       width: 2 * base,
